@@ -1,2 +1,2 @@
-# ai-resume-analyser
+# ai-interview-app
 genai project
