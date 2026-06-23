@@ -1,22 +1,45 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import AuthBrandPanel from "../components/AuthBrandPanel";
+import ScreenLoader from "../components/ScreenLoader";
 import { MailIcon, LockIcon, EyeIcon, EyeOffIcon } from "../components/icons";
 import "../auth.form.scss";
 import { useAuth } from "../hooks/useAuth";
+
+const getErrorMessage = (error) =>
+  error?.response?.data?.message ?? "Login failed. Please try again.";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const { loading, handleLogin } = useAuth();
+  const { user, loading, handleLogin } = useAuth();
   const navigate = useNavigate();
+
+  if (loading) {
+    return <ScreenLoader label="Checking your session" />;
+  }
+
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await handleLogin({ email, password });
-    navigate('/');
+    setError("");
+    setIsSubmitting(true);
+
+    try {
+      await handleLogin({ email, password });
+      navigate("/", { replace: true });
+    } catch (err) {
+      setError(getErrorMessage(err));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -32,6 +55,12 @@ const Login = () => {
             <h1>Welcome back</h1>
             <p>Log in to continue to your dashboard</p>
           </div>
+
+          {error && (
+            <p className="form-error" role="alert">
+              {error}
+            </p>
+          )}
 
           <form onSubmit={handleSubmit}>
             <div className="input-group">
@@ -81,10 +110,11 @@ const Login = () => {
             </div>
 
             <button
+              type="submit"
               className="button primary-button full-width"
-              disabled={loading}
+              disabled={isSubmitting}
             >
-              {loading ? <span className="spinner" /> : "Login"}
+              {isSubmitting ? <span className="spinner" /> : "Login"}
             </button>
           </form>
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import AuthBrandPanel from "../components/AuthBrandPanel";
+import ScreenLoader from "../components/ScreenLoader";
 import {
   UserIcon,
   MailIcon,
@@ -11,19 +12,41 @@ import {
 import "../auth.form.scss";
 import { useAuth } from "../hooks/useAuth";
 
+const getErrorMessage = (error) =>
+  error?.response?.data?.message ?? "Registration failed. Please try again.";
+
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
-  const { loading, handleRegister } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
+  const { user, loading, handleRegister } = useAuth();
   const navigate = useNavigate();
+
+  if (loading) {
+    return <ScreenLoader label="Checking your session" />;
+  }
+
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await handleRegister({ username, email, password });
-    navigate("/");
+    setError("");
+    setIsSubmitting(true);
+
+    try {
+      await handleRegister({ username, email, password });
+      navigate("/", { replace: true });
+    } catch (err) {
+      setError(getErrorMessage(err));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -39,6 +62,12 @@ const Register = () => {
             <h1>Create your account</h1>
             <p>Start your free trial, no credit card required</p>
           </div>
+
+          {error && (
+            <p className="form-error" role="alert">
+              {error}
+            </p>
+          )}
 
           <form onSubmit={handleSubmit}>
             <div className="input-group">
@@ -106,10 +135,11 @@ const Register = () => {
             </label>
 
             <button
+              type="submit"
               className="button primary-button full-width"
-              disabled={loading}
+              disabled={isSubmitting}
             >
-              {loading ? <span className="spinner" /> : "Create account"}
+              {isSubmitting ? <span className="spinner" /> : "Create account"}
             </button>
           </form>
 
