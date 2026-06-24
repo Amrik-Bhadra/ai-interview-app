@@ -12,8 +12,10 @@ app.use(cors({
 
 // require all rountes here
 const authRouter = require('./routes/auth.routes');
+const aiRoutes = require('./routes/report.routes');
 
 // using all routes here
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/report', aiRoutes);
 
 module.exports = app;

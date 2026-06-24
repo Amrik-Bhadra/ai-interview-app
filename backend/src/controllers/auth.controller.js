@@ -8,7 +8,6 @@ const cookieOptions = {
     secure: process.env.NODE_ENV === 'production',
     sameSite: "strict"
 }
-
 const maxAge = 24 * 60 * 60 * 1000
 
 /**
