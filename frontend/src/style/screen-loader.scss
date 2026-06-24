@@ -1,0 +1,73 @@
+.screen-loader {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background-color: var(--bg);
+}
+
+.loader-core {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .core-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--primary-light);
+        box-shadow: 0 0 14px var(--primary-light);
+        z-index: 1;
+    }
+
+    .ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 1.5px solid var(--primary-light);
+        opacity: 0;
+        animation: pulseRing 2.1s ease-out infinite;
+    }
+
+    .ring-2 { animation-delay: 0.5s; }
+    .ring-3 { animation-delay: 1s; }
+}
+
+@keyframes pulseRing {
+    0% { transform: scale(0.4); opacity: 0.6; }
+    100% { transform: scale(1.4); opacity: 0; }
+}
+
+.loader-label {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: baseline;
+}
+
+.loader-dots span {
+    animation: dotFade 1.4s ease-in-out infinite;
+    opacity: 0;
+}
+
+.loader-dots span:nth-child(1) { animation-delay: 0s; }
+.loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loader-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotFade {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ring, .loader-dots span { animation: none !important; opacity: 0.4; }
+}
