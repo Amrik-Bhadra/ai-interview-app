@@ -1,4 +1,5 @@
 const { generateInterviewReport } = require('../services/ai.services');
+const { parseResumeContent } = require('../utils/helper');
 
 /**
  * @name generateReportController
@@ -8,15 +9,27 @@ const { generateInterviewReport } = require('../services/ai.services');
  * @param {*} res 
  */
 async function generateReportController(req, res) {
-    const { resumeText, jobDescription, selfDescription } = req.body;
+    const { jobDescription, selfDescription } = req.body;
 
-    if (!resumeText || !jobDescription || !selfDescription) {
+    // check if the resume is provided or not
+    if (!req.file) {
+        return res.status(401).json({
+            message: 'Resume PDF is required.'
+        });
+    }
+
+    // check if job description of 
+    if (!jobDescription || !selfDescription) {
         return res.status(401).json({
             message: "Please provide resume text, job description and self description."
         });
     }
 
     try {
+        // parse the content of the resume file
+        const resumeText = await parseResumeContent(req.file);
+        console.log('resume text:', resumeText);
+
         const reportData = await generateInterviewReport(resumeText, selfDescription, jobDescription);
         res.status(200).json({
             message: 'Report generated successfully.',
