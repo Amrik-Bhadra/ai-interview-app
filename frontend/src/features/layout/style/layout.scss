@@ -1,0 +1,172 @@
+.app-shell {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+    transition: grid-template-columns 0.25s ease;
+
+    &.sidebar-collapsed {
+        grid-template-columns: 76px 1fr;
+    }
+}
+
+.sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 1rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+
+    .brand-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 1.05rem;
+        padding: 0.5rem 0.5rem 1.5rem;
+        white-space: nowrap;
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            box-shadow: 0 0 10px var(--primary-light);
+            flex-shrink: 0;
+        }
+    }
+
+    .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        flex: 1;
+    }
+
+    .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        padding: 0.7rem 0.85rem;
+        border-radius: var(--radius-md);
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        white-space: nowrap;
+        border: none;
+        background: none;
+        cursor: pointer;
+        width: 100%;
+        transition: background 0.2s, color 0.2s;
+
+        .nav-icon { flex-shrink: 0; }
+
+        &:hover {
+            background: var(--surface-raised);
+            color: var(--text);
+        }
+
+        &.active {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 14px var(--primary-glow);
+        }
+    }
+
+    .sidebar-bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border);
+
+        .logout-btn:hover {
+            color: var(--error);
+            background: rgba(226, 86, 111, 0.08);
+        }
+
+        .collapse-btn {
+            align-self: flex-end;
+            background: var(--surface-raised);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            svg { transition: transform 0.25s ease; }
+            svg.rotated { transform: rotate(180deg); }
+
+            &:hover { color: var(--text); }
+        }
+    }
+}
+
+.app-main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 2rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 5;
+
+    h1 { font-size: 1.15rem; font-weight: 700; }
+
+    .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .user-avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--surface-raised);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.85rem;
+    }
+}
+
+.app-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.button.small {
+    padding-inline: 1rem;
+    padding-block: 0.55rem;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 900px) {
+    .app-shell { grid-template-columns: 76px 1fr; }
+
+    .sidebar .brand-logo span:not(.dot),
+    .sidebar .nav-item span {
+        display: none;
+    }
+}
