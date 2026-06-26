@@ -13,3 +13,9 @@
     
 - API => for communication with backend apis
     - services
+
+
+## Authentication
+- Login
+- Register
+
