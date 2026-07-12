@@ -1,33 +1,32 @@
-const userModel = require('../models/user.model');
-const blacklistModel = require('../models/blacklist.model');
+import userModel from '../models/user.model.js';
+import blacklistModel from '../models/blacklist.model.js';
 
-async function findByEmailOrUsername(email, username) {
+export async function findByEmailOrUsername(email, username) {
     return await userModel.findOne({
         $or: [{ email }, { username }]
     });
 }
 
-async function findByEmail(email) {
+export async function findByEmail(email) {
     return await userModel.findOne({ email });
 }
 
-async function findById(id) {
+export async function findById(id) {
     return userModel.findById(id);
 }
 
-async function createUser(userData) {
+export async function createUser(userData) {
     return await userModel.create(userData);
 }
 
-
-async function blacklistToken(token) {
+export async function blacklistToken(token) {
     return await blacklistModel.create({ token });
 }
 
-module.exports = {
-    findByEmailOrUsername,
-    findByEmail,
-    findById,
-    createUser,
-    blacklistToken
+export async function updatePassword(email, hashedPassword) {
+    return await userModel.findOneAndUpdate(
+        { email },
+        { password: hashedPassword },
+        { new: true }
+    );
 }

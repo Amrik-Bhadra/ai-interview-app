@@ -1,8 +1,4 @@
-const userModel = require('../models/user.model.js');
-const blacklistTokenModel = require('../models/blacklist.model.js');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const authService = require('../services/auth.service.js');
+import * as authService from '../services/auth.service.js';
 
 const cookieOptions = {
     httpOnly: true,
@@ -131,9 +127,73 @@ async function getMeController(req, res) {
     }
 }
 
-module.exports = {
+/**
+ * @name forgotPasswordController
+ * @description expects user's registered email, so that we can sent otp
+ * @param {*} req 
+ * @param {*} res 
+ */
+async function forgotPasswordController(req, res) {
+    try {
+        const email = req.body.email;
+        if(!email){
+            return res.status(400).json({ message: "Please provide email address" })
+        }
+
+        await authService.forgotPassword(email);
+
+        return res.status(200).json({ message: "OTP sent to your email address" });
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+}
+
+
+/**
+ * @name verifyOtpController
+ * @description expects email and otp, returns a reset token on success
+ */
+async function verifyOtpController(req, res) {
+    try {
+        const { email, otp } = req.body;
+        if (!email || !otp) {
+            return res.status(400).json({ message: "Please provide email and OTP" });
+        }
+
+        const { resetToken } = await authService.verifyOtp(email, otp);
+
+        return res.status(200).json({ message: "OTP verified successfully", resetToken });
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+}
+
+
+/**
+ * @name resetPasswordController
+ * @description expects email, resetToken and newPassword
+ */
+async function resetPasswordController(req, res) {
+    try {
+        const { email, resetToken, newPassword } = req.body;
+
+        if (!email || !resetToken || !newPassword) {
+            return res.status(400).json({ message: "Please provide email, resetToken and newPassword" });
+        }
+
+        await authService.resetPassword(email, resetToken, newPassword);
+        return res.status(200).json({ message: "Password reset successfully" });
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+}
+
+export {
     registerUserController,
     loginController,
     logoutController,
-    getMeController
+    getMeController,
+    forgotPasswordController,
+    verifyOtpController,
+    resetPasswordController
 };

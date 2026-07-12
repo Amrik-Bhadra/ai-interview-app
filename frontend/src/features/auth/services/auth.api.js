@@ -30,3 +30,22 @@ export async function getMe() {
 
     return response.data;
 }
+
+export async function forgotPassword({ email }) {
+    const response = await axiosInstance.post('/api/v1/auth/forgot-password', { email });
+    return response.data;
+}
+
+export async function verifyOtp({ email, otp }) {
+    const response = await axiosInstance.post('/api/v1/auth/verify-otp', { email, otp });
+    return response.data;
+}
+
+export async function resetPassword({ email, resetToken, newPassword }) {
+    const response = await axiosInstance.post('/api/v1/auth/reset-password', {
+        email,
+        resetToken,
+        newPassword,
+    });
+    return response.data;
+}

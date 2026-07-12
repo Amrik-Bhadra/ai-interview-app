@@ -232,3 +232,156 @@ main {
         &:hover { text-decoration: underline; }
     }
 }
+
+// ─── Back link ───────────────────────────────────────────────────────────────
+.back-link-auth {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-bottom: -0.5rem;
+    transition: color 0.2s;
+
+    &:hover { color: var(--text); }
+}
+
+// ─── OTP digit inputs ────────────────────────────────────────────────────────
+.otp-group {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: space-between;
+}
+
+.otp-input {
+    flex: 1;
+    min-width: 0;
+    aspect-ratio: 1;
+    max-width: 56px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    border-radius: var(--radius-md);
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+    text-align: center;
+    outline: none;
+    caret-color: var(--primary-light);
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    &.filled {
+        border-color: var(--primary-light);
+        background: rgba(184, 69, 110, 0.06);
+    }
+}
+
+// ─── Inline link (button styled as link) ─────────────────────────────────────
+.inline-link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--primary-light);
+    font-size: inherit;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+
+    &:hover:not(:disabled) { text-decoration: underline; }
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+// ─── Sent / success confirmation block ───────────────────────────────────────
+.sent-confirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    text-align: center;
+    padding: 1rem 0;
+
+    .sent-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: var(--surface);
+        border: 1.5px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        color: var(--text-muted);
+
+        &.success {
+            background: rgba(76, 195, 138, 0.1);
+            border-color: rgba(76, 195, 138, 0.3);
+            color: #4cc38a;
+        }
+    }
+
+    p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+}
+
+// ─── Password strength ────────────────────────────────────────────────────────
+.password-strength {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.35rem;
+}
+
+.strength-bars {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+}
+
+.strength-bar {
+    flex: 1;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--border);
+    transition: background 0.3s ease;
+
+    &.weak   { background: var(--error); }
+    &.fair   { background: #ffc154; }
+    &.good   { background: #7ec8e3; }
+    &.strong { background: #4cc38a; }
+}
+
+.strength-text {
+    font-size: 0.76rem;
+    font-weight: 700;
+    min-width: 44px;
+    text-align: right;
+    transition: color 0.3s;
+
+    &.weak   { color: var(--error); }
+    &.fair   { color: #ffc154; }
+    &.good   { color: #7ec8e3; }
+    &.strong { color: #4cc38a; }
+}
+
+// ─── Field-level error ────────────────────────────────────────────────────────
+.field-error {
+    font-size: 0.78rem;
+    color: var(--error);
+    margin-top: 0.25rem;
+}
+
+.input-wrapper.input-error input {
+    border-color: var(--error);
+    box-shadow: 0 0 0 3px rgba(226, 86, 111, 0.15);
+}
+
+// ─── Also update forgot-password link in Login to point to /forgot-password ──
+// In Login.jsx, the existing <Link to="/forgot-password"> already works — no change needed.

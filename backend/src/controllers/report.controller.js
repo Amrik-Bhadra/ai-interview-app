@@ -1,5 +1,5 @@
-const { generateInterviewReport } = require('../services/ai.services');
-const { parseResumeContent } = require('../utils/helper');
+import { generateInterviewReport } from '../services/ai.services.js';
+import { parseResumeContent } from '../utils/helper.js';
 
 /**
  * @name generateReportController
@@ -30,7 +30,7 @@ async function generateReportController(req, res) {
         const resumeText = await parseResumeContent(req.file);
         console.log('resume text:', resumeText);
 
-        const reportData = await generateInterviewReport(resumeText, selfDescription, jobDescription);
+        const reportData = await generateInterviewReport({ resumeText, selfDescription, jobDescription });
         res.status(200).json({
             message: 'Report generated successfully.',
             reportData: reportData
@@ -42,4 +42,4 @@ async function generateReportController(req, res) {
     }
 }
 
-module.exports = { generateReportController }
+export { generateReportController };

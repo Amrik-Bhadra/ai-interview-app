@@ -100,8 +100,8 @@ Preferred:
 - Knowledge of message queues (Kafka, RabbitMQ).
 `;
 
-module.exports = {
+export {
     resumeText,
     jobDescription,
     selfDescription
-}
+};

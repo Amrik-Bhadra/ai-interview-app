@@ -1,14 +1,12 @@
-const { GoogleGenAI } = require("@google/genai");
-const { zodToJsonSchema } = require('zod-to-json-schema');
-const { interviewReportAISchema } = require('../utils/ai-schemas');
-const { reportGenerationPrompt } = require("../utils/prompts");
-const { mockInterviewReport } = require("../utils/mock-data");
+import { GoogleGenAI } from "@google/genai";
+import { interviewReportAISchema } from '../utils/ai-schemas.js';
+import { reportGenerationPrompt } from "../utils/prompts.js";
 
 const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GENAI_API_KEY
 });
 
-async function generateInterviewReport({
+export async function generateInterviewReport({
     resumeText,
     selfDescription,
     jobDescription
@@ -20,21 +18,18 @@ async function generateInterviewReport({
     });
 
     try {
-        // const response = await ai.models.generateContent({
-        //     model: "gemini-2.5-flash",
-        //     contents: prompt,
-        //     config: {
-        //         responseMimeType: 'application/json',
-        //         responseJsonSchema: interviewReportAISchema
-        //     }
-        // });
+        const response = await ai.models.generateContent({
+            model: "gemini-2.5-flash",
+            contents: prompt,
+            config: {
+                responseMimeType: 'application/json',
+                responseJsonSchema: interviewReportAISchema
+            }
+        });
 
-        // const reportData = JSON.parse(response.text);
-        return mockInterviewReport;
+        return JSON.parse(response.text);
     } catch (error) {
         console.error("Failed to parse clean JSON structured output:", error);
         throw new Error("Failed to generate report");
     }
 }
-
-module.exports = { generateInterviewReport };

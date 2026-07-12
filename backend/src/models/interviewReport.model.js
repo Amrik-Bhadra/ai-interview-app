@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 /**
  * - job description -> string
@@ -144,4 +144,4 @@ const InterviewReport = mongoose.model(
     interviewReportSchema
 );
 
-module.exports = InterviewReport;
+export default InterviewReport;
