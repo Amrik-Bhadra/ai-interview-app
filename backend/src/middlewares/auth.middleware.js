@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const blacklistTokenModel = require('../models/blacklist.model');
+import jwt from 'jsonwebtoken';
+import blacklistTokenModel from '../models/blacklist.model.js';
 
 async function authorize(req, res, next) {
     const token = req.cookies.accessToken;
@@ -31,4 +31,4 @@ async function authorize(req, res, next) {
     }
 }
 
-module.exports = { authorize };
+export { authorize };

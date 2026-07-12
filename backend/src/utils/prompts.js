@@ -1,4 +1,4 @@
-const reportGenerationPrompt = ({
+export const reportGenerationPrompt = ({
     resumeText,
     selfDescription,
     jobDescription
@@ -42,5 +42,3 @@ For every technical and behavioral question, compile the text within the "answer
 
 Ensure all fields are fully populated and strict JSON types are respected.
 `;
-
-module.exports = { reportGenerationPrompt };

@@ -1,6 +1,6 @@
-const { z } = require("zod");
+import { z } from "zod";
 
-const interviewReportAISchema = z.object({
+export const interviewReportAISchema = z.object({
     // 1. Added the missing matchScore field
     matchScore: z.number()
         .min(0)
@@ -42,5 +42,3 @@ const interviewReportAISchema = z.object({
         })
     )
 });
-
-module.exports = { interviewReportAISchema };

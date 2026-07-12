@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { UploadCloudIcon, FileIcon, XIcon } from "../components/icons.jsx";
+import { UploadCloudIcon, FileIcon } from "../components/icons.jsx";
+import { XIcon } from "../../../components/icons.jsx"
 
 const formatSize = (bytes) => {
   if (!bytes) return "";

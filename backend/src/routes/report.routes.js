@@ -1,7 +1,8 @@
-const { Router } = require('express');
-const { authorize } = require('../middlewares/auth.middleware');
-const { generateReportController } = require('../controllers/report.controller');
-const upload = require('../middlewares/file.middleware');
+import { Router } from 'express';
+import { authorize } from '../middlewares/auth.middleware.js';
+import { generateReportController } from '../controllers/report.controller.js';
+import upload from '../middlewares/file.middleware.js';
+
 const router = Router();
 
 /**
@@ -11,4 +12,4 @@ const router = Router();
  */
 router.post('/generate', authorize, upload.single("resume"), generateReportController);
 
-module.exports = router;
+export default router;

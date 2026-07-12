@@ -1,4 +1,4 @@
-const mockInterviewReport = {
+export const mockInterviewReport = {
     jobDescription: "Senior Backend Engineer specializing in Node.js, distributed architectures, and performance optimization with MongoDB and Redis. Required to work on scaling critical services and API designs.",
     
     resumeText: "Software Developer Intern at ElasticRun. Built full-stack features using React, Node.js, and Java Spring Boot. Optimized PostgreSQL queries and integrated application features in an Agile environment.",
@@ -58,5 +58,3 @@ const mockInterviewReport = {
         }
     ]
 };
-
-module.exports = { mockInterviewReport };
