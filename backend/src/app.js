@@ -37,6 +37,9 @@ const globalLimiter = rateLimit({
 });
 app.use(globalLimiter);
 
+app.get("/health", (req, res) => {
+    res.status(200).json({ status: "ok" });
+});
 
 // using all routes here
 app.use('/api/v1/auth', authRouter);
