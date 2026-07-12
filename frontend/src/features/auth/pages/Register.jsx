@@ -12,6 +12,7 @@ import {
 import "../auth.form.scss";
 import { useAuth } from "../hooks/useAuth";
 import { usePageTitle } from "../../../hooks/usePageTitle";
+import { notify } from "../../../utils/toast";
 
 const getErrorMessage = (error) =>
   error?.response?.data?.message ?? "Registration failed. Please try again.";
@@ -43,7 +44,8 @@ const Register = () => {
 
     try {
       await handleRegister({ username, email, password });
-      navigate("/", { replace: true });
+      notify.success("Registered successfully!");
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       setError(getErrorMessage(err));
     } finally {

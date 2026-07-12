@@ -9,9 +9,10 @@ import {
 } from "../../interview/components/icons.jsx";
 import { useState } from "react";
 import Modal from "../../../components/modal/Modal.jsx";
+import { notify } from "../../../utils/toast.js";
 
 const navItems = [
-  { to: "/", label: "Dashboard", icon: GridIcon, end: true },
+  { to: "/dashboard", label: "Dashboard", icon: GridIcon, end: true },
   { to: "/generate-report", label: "Generate Report", icon: FilePlusIcon },
   { to: "/reports", label: "Reports", icon: FileTextIcon },
 ];
@@ -27,10 +28,12 @@ const Sidebar = ({ collapsed, onToggle }) => {
     setIsLoggingOut(true);
     try {
       await handleLogout();
+      notify.success("Logged out successfully!");
       navigate("/login", { replace: true });
     } catch {
       // logout failed silently — session may already be dead on the server,
       // so clear local state and redirect anyway
+      notify.error("Failed to logout!");
       navigate("/login", { replace: true });
     } finally {
       setIsLoggingOut(false);

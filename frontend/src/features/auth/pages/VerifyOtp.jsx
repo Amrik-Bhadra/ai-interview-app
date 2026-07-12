@@ -7,6 +7,7 @@ import { useAuth } from "../hooks/useAuth";
 import { verifyOtp, forgotPassword } from "../services/auth.api";
 import "../auth.form.scss";
 import { usePageTitle } from "../../../hooks/usePageTitle";
+import { notify } from "../../../utils/toast";
 
 const OTP_LENGTH = 5; // backend generates 5-digit OTP
 const getErrorMessage = (error) =>
@@ -89,12 +90,13 @@ const VerifyOtp = () => {
     try {
       // Backend returns { message, resetToken }
       const data = await verifyOtp({ email, otp });
-
+      notify.success("OTP verified successfully!");
       // Pass resetToken (not otp) forward — that's what resetPassword expects
       navigate("/reset-password", {
         state: { email, resetToken: data.resetToken },
       });
     } catch (err) {
+      notify.error("Failed to verify otp!");
       setError(getErrorMessage(err));
       // Clear boxes and refocus on any error (wrong OTP, too many attempts, expired)
       setDigits(Array(OTP_LENGTH).fill(""));

@@ -21,14 +21,13 @@ export const router = createBrowserRouter([
   { path: "/verify-otp", element: <VerifyOtp /> },
   { path: "/reset-password", element: <ResetPassword /> },
   {
-    path: "/dashboard",
     element: (
       <Protected>
         <DashboardLayout />
       </Protected>
     ),
     children: [
-      { index: true, element: <Dashboard /> },
+      { path: "dashboard", element: <Dashboard /> },
       { path: "generate-report", element: <GenerateReport /> },
       { path: "reports", element: <Reports /> },
       { path: "reports/:id", element: <ReportDetail /> },

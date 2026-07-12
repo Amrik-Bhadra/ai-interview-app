@@ -7,6 +7,7 @@ import { useAuth } from "../hooks/useAuth";
 import { forgotPassword } from "../services/auth.api";
 import "../auth.form.scss";
 import { usePageTitle } from "../../../hooks/usePageTitle";
+import { notify } from "../../../utils/toast";
 
 const getErrorMessage = (error) =>
   error?.response?.data?.message ?? "Something went wrong. Please try again.";
@@ -32,6 +33,7 @@ const ForgotPassword = () => {
     try {
       await forgotPassword({ email });
       setSent(true);
+      notify.success("OTP sent successfully!");
       setTimeout(() => navigate("/verify-otp", { state: { email } }), 1400);
     } catch (err) {
       setError(getErrorMessage(err));

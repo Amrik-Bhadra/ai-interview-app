@@ -6,6 +6,7 @@ import { MailIcon, LockIcon, EyeIcon, EyeOffIcon } from "../components/icons";
 import "../auth.form.scss";
 import { useAuth } from "../hooks/useAuth";
 import { usePageTitle } from "../../../hooks/usePageTitle";
+import { notify } from "../../../utils/toast.js";
 
 const getErrorMessage = (error) =>
   error?.response?.data?.message ?? "Login failed. Please try again.";
@@ -36,7 +37,8 @@ const Login = () => {
 
     try {
       await handleLogin({ email, password });
-      navigate("/", { replace: true });
+      notify.success("Logged in successfully.");
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       setError(getErrorMessage(err));
     } finally {
