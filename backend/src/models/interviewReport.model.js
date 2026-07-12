@@ -1,31 +1,5 @@
 import mongoose from 'mongoose';
 
-/**
- * - job description -> string
- * - resume text -> string
- * - self description -> string
- * 
- * - matchScore -> Number
- * 
- * - Technical questions -> [
- *     { question: "", intention: "", answer: "" }
- *   ]
- * 
- * - Behavioral questions -> [
- *     { question: "", intention: "", answer: "" }
- *   ]
- * 
- * - skills gaps: [{
- *       skills: "",
- *       severity: { type: String, enum: ["low", "medium", "high"] }
- *    }]
- * - preparation plan: [ {
- *      day: Number,
- *      focus: String,
- *      tasks: [String]
- *    }]
- */
-
 const questionSchema = new mongoose.Schema(
     {
         question: {
@@ -87,6 +61,11 @@ const preparationPlanSchema = new mongoose.Schema(
 
 const interviewReportSchema = new mongoose.Schema(
     {
+        role: {
+            type: String,
+            required: [true, "Role is required."],
+            trim: true,
+        },
         jobDescription: {
             type: String,
             required: [true, "Job description is required."],
@@ -131,7 +110,9 @@ const interviewReportSchema = new mongoose.Schema(
         },
         user: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "users"
+            ref: "User",
+            required: true,
+            index: true,
         }
     },
     {

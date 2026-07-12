@@ -1,7 +1,9 @@
 import { z } from "zod";
 
 export const interviewReportAISchema = z.object({
-    // 1. Added the missing matchScore field
+    role: z.string()
+        .describe("The specific job role/title extracted or inferred from the job description, e.g. 'Backend Developer', 'Full Stack Developer', 'Frontend Developer', 'DevOps Engineer'. Keep it concise (2-4 words)."),
+
     matchScore: z.number()
         .min(0)
         .max(100)
@@ -42,3 +44,6 @@ export const interviewReportAISchema = z.object({
         })
     )
 });
+
+// Zod v4 native JSON Schema conversion — no external package needed
+export const interviewReportJsonSchema = z.toJSONSchema(interviewReportAISchema);
