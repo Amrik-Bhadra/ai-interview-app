@@ -1,0 +1,17 @@
+.landing {
+    overflow-x: clip;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    main {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    section {
+        width: 100%;
+        flex-shrink: 0;
+    }
+}

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const bars = [40, 70, 35, 90, 55, 80, 45, 65, 30, 75, 50, 85];
 
 const CheckIcon = () => (
@@ -6,12 +8,19 @@ const CheckIcon = () => (
   </svg>
 );
 
+const features = [
+  "AI-generated technical & behavioral questions",
+  "Resume-to-role match scoring, out of 100",
+  "Skill gap analysis with severity ratings",
+  "Day-by-day personalised preparation plan",
+];
+
 const AuthBrandPanel = ({ heading, subheading }) => (
   <div className="brand-panel">
-    <div className="brand-logo">
+    <Link to="/" className="brand-logo">
       <span className="dot" />
       IntervueAI
-    </div>
+    </Link>
 
     <div className="brand-copy">
       <h2>{heading}</h2>
@@ -24,9 +33,12 @@ const AuthBrandPanel = ({ heading, subheading }) => (
       </div>
 
       <ul className="feature-list">
-        <li><CheckIcon /> AI-generated interview questions</li>
-        <li><CheckIcon /> Real-time transcript & scoring</li>
-        <li><CheckIcon /> Bias-free, structured evaluation</li>
+        {features.map((f) => (
+          <li key={f}>
+            <CheckIcon />
+            {f}
+          </li>
+        ))}
       </ul>
     </div>
 

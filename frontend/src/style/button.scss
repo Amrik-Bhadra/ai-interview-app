@@ -30,6 +30,18 @@
         }
     }
 
+    &.secondary-button {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+
+        &:hover:not(:disabled) {
+            border-color: var(--primary-light);
+            color: var(--primary-light);
+            transform: translateY(-1px);
+        }
+    }
+
     &.full-width {
         width: 100%;
     }

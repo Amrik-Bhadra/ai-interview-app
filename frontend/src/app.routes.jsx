@@ -11,15 +11,17 @@ import ReportDetail from "./features/interview/pages/ReportDetail";
 import ForgotPassword from "./features/auth/pages/ForgotPassword";
 import VerifyOtp from "./features/auth/pages/VerifyOtp";
 import ResetPassword from "./features/auth/pages/ResetPassword";
+import Landing from "./pages/Landing";
 
 export const router = createBrowserRouter([
+  { path: "/", element: <Landing /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
   { path: "/verify-otp", element: <VerifyOtp /> },
   { path: "/reset-password", element: <ResetPassword /> },
   {
-    path: "/",
+    path: "/dashboard",
     element: (
       <Protected>
         <DashboardLayout />

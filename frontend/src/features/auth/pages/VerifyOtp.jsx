@@ -49,7 +49,9 @@ const VerifyOtp = () => {
     if (value.length > 1) {
       const pasted = value.replace(/\D/g, "").slice(0, OTP_LENGTH);
       const next = [...digits];
-      pasted.split("").forEach((ch, i) => { if (i < OTP_LENGTH) next[i] = ch; });
+      pasted.split("").forEach((ch, i) => {
+        if (i < OTP_LENGTH) next[i] = ch;
+      });
       setDigits(next);
       focusAt(Math.min(pasted.length, OTP_LENGTH - 1));
       return;
@@ -121,8 +123,8 @@ const VerifyOtp = () => {
   return (
     <main>
       <AuthBrandPanel
-        heading="One step away from getting back in."
-        subheading="Enter the 5-digit verification code we sent to your email to continue resetting your password."
+        heading="Set a new password."
+        subheading="Choose a strong password to keep your reports and progress secure."
       />
 
       <div className="form-panel">
@@ -134,12 +136,16 @@ const VerifyOtp = () => {
           <div className="form-header">
             <h1>Enter verification code</h1>
             <p>
-              We sent a 5-digit code to <strong>{email}</strong>.
-              It expires in <strong>5 minutes</strong>.
+              We sent a 5-digit code to <strong>{email}</strong>. It expires in{" "}
+              <strong>5 minutes</strong>.
             </p>
           </div>
 
-          {error && <p className="form-error" role="alert">{error}</p>}
+          {error && (
+            <p className="form-error" role="alert">
+              {error}
+            </p>
+          )}
 
           <form onSubmit={handleSubmit}>
             <div className="otp-group">
@@ -181,8 +187,8 @@ const VerifyOtp = () => {
               {isResending
                 ? "Sending…"
                 : resendCooldown > 0
-                ? `Resend in ${resendCooldown}s`
-                : "Resend OTP"}
+                  ? `Resend in ${resendCooldown}s`
+                  : "Resend OTP"}
             </button>
           </p>
         </div>

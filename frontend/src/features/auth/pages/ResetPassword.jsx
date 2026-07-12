@@ -2,14 +2,21 @@ import { useState, useEffect } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import AuthBrandPanel from "../components/AuthBrandPanel";
 import ScreenLoader from "../components/ScreenLoader";
-import { LockIcon, EyeIcon, EyeOffIcon, KeyIcon, ArrowLeftIcon } from "../components/icons";
+import {
+  LockIcon,
+  EyeIcon,
+  EyeOffIcon,
+  KeyIcon,
+  ArrowLeftIcon,
+} from "../components/icons";
 import { useAuth } from "../hooks/useAuth";
 import { resetPassword } from "../services/auth.api";
 import "../auth.form.scss";
 import { usePageTitle } from "../../../hooks/usePageTitle";
 
 const getErrorMessage = (error) =>
-  error?.response?.data?.message ?? "Failed to reset password. Please try again.";
+  error?.response?.data?.message ??
+  "Failed to reset password. Please try again.";
 
 const getStrength = (pw) => {
   if (!pw) return 0;
@@ -75,8 +82,8 @@ const ResetPassword = () => {
   return (
     <main>
       <AuthBrandPanel
-        heading="Set a strong new password for your account."
-        subheading="Choose something you haven't used before. Your account security matters to us."
+        heading="One step from your dashboard."
+        subheading="Verify your identity to continue building your prep plan."
       />
 
       <div className="form-panel">
@@ -96,7 +103,11 @@ const ResetPassword = () => {
 
           {!success && (
             <>
-              {error && <p className="form-error" role="alert">{error}</p>}
+              {error && (
+                <p className="form-error" role="alert">
+                  {error}
+                </p>
+              )}
 
               <form onSubmit={handleSubmit}>
                 <div className="input-group">
@@ -133,7 +144,9 @@ const ResetPassword = () => {
                           />
                         ))}
                       </div>
-                      <span className={`strength-text ${strengthClass[strength]}`}>
+                      <span
+                        className={`strength-text ${strengthClass[strength]}`}
+                      >
                         {strengthLabel[strength]}
                       </span>
                     </div>
@@ -142,7 +155,9 @@ const ResetPassword = () => {
 
                 <div className="input-group">
                   <label htmlFor="confirmPassword">Confirm new password</label>
-                  <div className={`input-wrapper ${mismatch ? "input-error" : ""}`}>
+                  <div
+                    className={`input-wrapper ${mismatch ? "input-error" : ""}`}
+                  >
                     <LockIcon className="input-icon" />
                     <input
                       type={showConfirm ? "text" : "password"}
@@ -158,12 +173,16 @@ const ResetPassword = () => {
                       type="button"
                       className="toggle-visibility"
                       onClick={() => setShowConfirm((v) => !v)}
-                      aria-label={showConfirm ? "Hide password" : "Show password"}
+                      aria-label={
+                        showConfirm ? "Hide password" : "Show password"
+                      }
                     >
                       {showConfirm ? <EyeOffIcon /> : <EyeIcon />}
                     </button>
                   </div>
-                  {mismatch && <p className="field-error">Passwords don't match</p>}
+                  {mismatch && (
+                    <p className="field-error">Passwords don't match</p>
+                  )}
                 </div>
 
                 <button
@@ -171,7 +190,11 @@ const ResetPassword = () => {
                   className="button primary-button full-width"
                   disabled={isSubmitting || !!mismatch || strength < 2}
                 >
-                  {isSubmitting ? <span className="spinner" /> : "Reset password"}
+                  {isSubmitting ? (
+                    <span className="spinner" />
+                  ) : (
+                    "Reset password"
+                  )}
                 </button>
               </form>
             </>
@@ -179,7 +202,9 @@ const ResetPassword = () => {
 
           {success && (
             <div className="sent-confirmation">
-              <div className="sent-icon success" aria-hidden="true">✓</div>
+              <div className="sent-icon success" aria-hidden="true">
+                ✓
+              </div>
               <p>Your password has been updated. Redirecting to login…</p>
             </div>
           )}

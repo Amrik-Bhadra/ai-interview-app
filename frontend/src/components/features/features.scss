@@ -1,0 +1,71 @@
+.features {
+    padding: 6.5rem 1.5rem;
+
+    &__inner { max-width: 1180px; margin: 0 auto; }
+
+    &__heading {
+        max-width: 40rem;
+        margin-bottom: 3.5rem;
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+
+        &.is-visible { opacity: 1; transform: none; }
+
+        .eyebrow {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--primary-light);
+            margin-bottom: 0.85rem;
+        }
+
+        h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); letter-spacing: -0.015em; margin-bottom: 0.85rem; }
+        p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+.feature-card {
+    padding: 1.85rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.25s ease;
+
+    &.is-visible { opacity: 1; transform: none; }
+    &:hover { border-color: var(--primary); transform: translateY(-4px); }
+
+    &__icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-md);
+        background: rgba(146, 45, 80, 0.1);
+        color: var(--primary-light);
+        margin-bottom: 1.25rem;
+
+        svg { width: 20px; height: 20px; }
+    }
+
+    h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+    p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+}
+
+@media (max-width: 960px) { .features__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .features__grid { grid-template-columns: 1fr; } }
+
+@media (prefers-reduced-motion: reduce) {
+    .features__heading, .feature-card { opacity: 1 !important; transform: none !important; transition: none !important; }
+}

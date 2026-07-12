@@ -33,7 +33,7 @@ const Register = () => {
   }
 
   if (user) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   const handleSubmit = async (e) => {
@@ -54,8 +54,8 @@ const Register = () => {
   return (
     <main>
       <AuthBrandPanel
-        heading="Hire faster with AI-led interviews your team can trust."
-        subheading="Create your account to start building interview flows and reviewing candidates with AI assistance."
+        heading="Your next interview starts here."
+        subheading="Get a personalised prep plan, matched to your resume and the job you want."
       />
 
       <div className="form-panel">

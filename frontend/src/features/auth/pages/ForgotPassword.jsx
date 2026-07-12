@@ -22,7 +22,7 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
 
   if (loading) return <ScreenLoader label="Checking your session" />;
-  if (user) return <Navigate to="/" replace />;
+  if (user) return <Navigate to="/dashboard" replace />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,8 +43,8 @@ const ForgotPassword = () => {
   return (
     <main>
       <AuthBrandPanel
-        heading="Securely recover access to your account."
-        subheading="We'll send a one-time password to your registered email address to verify it's you."
+        heading="Let's get you back in."
+        subheading="Reset your password and pick up your interview prep right where you left off."
       />
 
       <div className="form-panel">
@@ -64,7 +64,11 @@ const ForgotPassword = () => {
 
           {!sent && (
             <>
-              {error && <p className="form-error" role="alert">{error}</p>}
+              {error && (
+                <p className="form-error" role="alert">
+                  {error}
+                </p>
+              )}
 
               <form onSubmit={handleSubmit}>
                 <div className="input-group">
@@ -101,8 +105,16 @@ const ForgotPassword = () => {
 
           {sent && (
             <div className="sent-confirmation">
-              <div className="sent-icon" aria-hidden="true">✉</div>
-              <p>Didn't get it? Check your spam folder or <button className="inline-link" onClick={() => setSent(false)}>try again</button>.</p>
+              <div className="sent-icon" aria-hidden="true">
+                ✉
+              </div>
+              <p>
+                Didn't get it? Check your spam folder or{" "}
+                <button className="inline-link" onClick={() => setSent(false)}>
+                  try again
+                </button>
+                .
+              </p>
             </div>
           )}
         </div>

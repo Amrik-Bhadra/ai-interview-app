@@ -26,7 +26,7 @@ const Login = () => {
   }
 
   if (user) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   const handleSubmit = async (e) => {
@@ -47,8 +47,8 @@ const Login = () => {
   return (
     <main>
       <AuthBrandPanel
-        heading="Run interviews that feel human, powered by AI."
-        subheading="Sign in to manage your interview pipelines, candidates, and AI-generated insights in one place."
+        heading="Walk into every interview prepared."
+        subheading="AI-driven interview prep tailored to your resume and the role you're targeting."
       />
 
       <div className="form-panel">
