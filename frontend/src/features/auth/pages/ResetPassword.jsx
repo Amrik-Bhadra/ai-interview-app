@@ -6,6 +6,7 @@ import { LockIcon, EyeIcon, EyeOffIcon, KeyIcon, ArrowLeftIcon } from "../compon
 import { useAuth } from "../hooks/useAuth";
 import { resetPassword } from "../services/auth.api";
 import "../auth.form.scss";
+import { usePageTitle } from "../../../hooks/usePageTitle";
 
 const getErrorMessage = (error) =>
   error?.response?.data?.message ?? "Failed to reset password. Please try again.";
@@ -31,6 +32,7 @@ const ResetPassword = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  usePageTitle("Reset Password");
 
   const { user, loading } = useAuth();
   const navigate = useNavigate();

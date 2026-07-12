@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useReports } from "../hooks/useReports";
 import ScreenLoader from "../../auth/components/ScreenLoader.jsx";
 import "../style/reports.scss";
+import { usePageTitle } from "../../../hooks/usePageTitle.js";
 
 const scoreTone = (score) => (score >= 80 ? "high" : score >= 60 ? "mid" : "low");
 
@@ -13,6 +14,7 @@ const formatDate = (iso) =>
     });
 
 const Reports = () => {
+    usePageTitle("Reports");
     const navigate = useNavigate();
     const { reports, loading, error, refetch } = useReports();
 

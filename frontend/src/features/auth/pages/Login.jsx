@@ -5,6 +5,7 @@ import ScreenLoader from "../components/ScreenLoader";
 import { MailIcon, LockIcon, EyeIcon, EyeOffIcon } from "../components/icons";
 import "../auth.form.scss";
 import { useAuth } from "../hooks/useAuth";
+import { usePageTitle } from "../../../hooks/usePageTitle";
 
 const getErrorMessage = (error) =>
   error?.response?.data?.message ?? "Login failed. Please try again.";
@@ -15,6 +16,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  usePageTitle("Login");
 
   const { user, loading, handleLogin } = useAuth();
   const navigate = useNavigate();

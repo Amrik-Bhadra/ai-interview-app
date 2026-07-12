@@ -6,6 +6,7 @@ import { ArrowLeftIcon } from "../components/icons";
 import { useAuth } from "../hooks/useAuth";
 import { verifyOtp, forgotPassword } from "../services/auth.api";
 import "../auth.form.scss";
+import { usePageTitle } from "../../../hooks/usePageTitle";
 
 const OTP_LENGTH = 5; // backend generates 5-digit OTP
 const getErrorMessage = (error) =>
@@ -17,6 +18,7 @@ const VerifyOtp = () => {
   const [isResending, setIsResending] = useState(false);
   const [error, setError] = useState("");
   const [resendCooldown, setResendCooldown] = useState(0);
+  usePageTitle("Verify OTP");
 
   const inputRefs = useRef([]);
   const { user, loading } = useAuth();

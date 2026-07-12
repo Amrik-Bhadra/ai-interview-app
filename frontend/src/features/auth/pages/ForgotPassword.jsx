@@ -6,6 +6,7 @@ import { MailIcon, ArrowLeftIcon } from "../components/icons";
 import { useAuth } from "../hooks/useAuth";
 import { forgotPassword } from "../services/auth.api";
 import "../auth.form.scss";
+import { usePageTitle } from "../../../hooks/usePageTitle";
 
 const getErrorMessage = (error) =>
   error?.response?.data?.message ?? "Something went wrong. Please try again.";
@@ -15,6 +16,7 @@ const ForgotPassword = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [sent, setSent] = useState(false);
+  usePageTitle("Forgot Password");
 
   const { user, loading } = useAuth();
   const navigate = useNavigate();

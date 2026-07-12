@@ -11,6 +11,7 @@ import {
 } from "../components/icons";
 import "../auth.form.scss";
 import { useAuth } from "../hooks/useAuth";
+import { usePageTitle } from "../../../hooks/usePageTitle";
 
 const getErrorMessage = (error) =>
   error?.response?.data?.message ?? "Registration failed. Please try again.";
@@ -22,6 +23,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  usePageTitle("Register");
 
   const { user, loading, handleRegister } = useAuth();
   const navigate = useNavigate();

@@ -5,6 +5,7 @@ import QuestionAccordion from "../components/QuestionAccordion";
 import ScreenLoader from "../../auth/components/ScreenLoader.jsx";
 import ExpandableText from "../components/ExpandableText";
 import "../style/report-detail.scss";
+import { usePageTitle } from "../../../hooks/usePageTitle";
 
 const formatDate = (iso) =>
   new Date(iso).toLocaleDateString("en-US", {
@@ -14,6 +15,7 @@ const formatDate = (iso) =>
   });
 
 const ReportDetail = () => {
+  usePageTitle("Report Details")
   const { id } = useParams();
   const { report, loading, error } = useReportDetails(id);
 

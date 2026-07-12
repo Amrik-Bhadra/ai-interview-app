@@ -4,6 +4,7 @@ import ScreenLoader from "../../auth/components/ScreenLoader";
 import ScoreTrendChart from "../components/ScoreTrendChart";
 import SkillGapBars from "../components/SkillGapBars";
 import "../styles/dashboard.scss";
+import { usePageTitle } from "../../../hooks/usePageTitle";
 
 const scoreTone = (s) => (s >= 80 ? "high" : s >= 60 ? "mid" : "low");
 
@@ -11,6 +12,7 @@ const formatDate = (iso) =>
     new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
 const Dashboard = () => {
+    usePageTitle("Dashboard");
     const { data, loading, error } = useDashboard();
     const navigate = useNavigate();
 
