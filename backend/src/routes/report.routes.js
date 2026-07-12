@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { authorize } from '../middlewares/auth.middleware.js';
 import {
     generateReportController,
+    getDashboardController,
     getReportController,
     listReportsController,
 } from '../controllers/report.controller.js';
@@ -9,12 +10,13 @@ import upload from '../middlewares/file.middleware.js';
 
 const router = Router();
 
+
 /**
- * @route POST /api/v1/report/generate
- * @description Generate report based on job description, resume and selfDescription
+ * @route GET /api/v1/report/dashboard
+ * @description Get aggregated dashboard analytics for the logged-in user
  * @access Private
  */
-router.post('/generate', authorize, upload.single("resume"), generateReportController);
+router.get('/dashboard', authorize, getDashboardController);
 
 /**
  * @route GET /api/v1/report
@@ -22,6 +24,13 @@ router.post('/generate', authorize, upload.single("resume"), generateReportContr
  * @access Private
  */
 router.get('/', authorize, listReportsController);
+
+/**
+ * @route POST /api/v1/report/generate
+ * @description Generate report based on job description, resume and selfDescription
+ * @access Private
+ */
+router.post('/generate', authorize, upload.single("resume"), generateReportController);
 
 /**
  * @route GET /api/v1/report/:id

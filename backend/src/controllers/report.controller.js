@@ -1,5 +1,6 @@
 import InterviewReport from '../models/interviewReport.model.js';
 import { generateInterviewReport } from '../services/ai.services.js';
+import { getDashboardStats } from "../services/report.service.js"
 import { parseResumeContent } from '../utils/helper.js';
 
 /**
@@ -94,4 +95,24 @@ async function listReportsController(req, res) {
     }
 }
 
-export { generateReportController, getReportController, listReportsController };
+/**
+ * @name getDashboardController
+ * @description Returns aggregated analytics for the logged-in user's dashboard
+ */
+async function getDashboardController(req, res) {
+    try {
+        const userId = req.user.id;
+        const data = await getDashboardStats(userId);
+        return res.status(200).json({ dashboard: data });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Failed to load dashboard data." });
+    }
+}
+
+export { 
+    generateReportController, 
+    getReportController, 
+    listReportsController, 
+    getDashboardController 
+};

@@ -2,15 +2,17 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    width: 100%;
 }
 
+// ── KPIs ────────────────────────────────────────────────────────────────────
 .kpi-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.25rem;
+    gap: 1.1rem;
 
     @media (max-width: 1100px) { grid-template-columns: repeat(2, 1fr); }
-    @media (max-width: 600px) { grid-template-columns: 1fr; }
+    @media (max-width: 600px)  { grid-template-columns: 1fr; }
 }
 
 .kpi-card {
@@ -20,13 +22,25 @@
     padding: 1.25rem 1.4rem;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.3rem;
 
-    .kpi-label { color: var(--text-muted); font-size: 0.85rem; }
-    .kpi-value { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; }
-    .kpi-trend { color: var(--primary-light); font-size: 0.8rem; font-weight: 500; }
+    .kpi-label { color: var(--text-muted); font-size: 0.82rem; font-weight: 500; }
+
+    .kpi-value {
+        font-family: var(--font-display);
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.1;
+
+        &.high { color: #4cc38a; }
+        &.mid  { color: #ffc154; }
+        &.low  { color: var(--error); }
+    }
+
+    .kpi-sub { color: var(--text-faint); font-size: 0.76rem; }
 }
 
+// ── Panels ───────────────────────────────────────────────────────────────────
 .panel-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -39,19 +53,178 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 1.5rem;
-
-    h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    padding: 1.4rem 1.5rem;
 }
 
-.placeholder-panel {
-    min-height: 220px;
+.panel-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    gap: 0.5rem;
+
+    h3 { font-size: 0.95rem; font-weight: 700; }
+
+    p { color: var(--text-faint); font-size: 0.76rem; }
+}
+
+.panel-link {
+    background: none;
+    border: none;
+    color: var(--primary-light);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+
+    &:hover { text-decoration: underline; }
+}
+
+.panel-hint {
+    color: var(--text-faint);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 1.5rem 0;
+}
+
+// ── Score trend chart ─────────────────────────────────────────────────────────
+.trend-chart-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.trend-svg {
+    width: 100%;
+    height: 120px;
+    display: block;
+    overflow: visible;
+}
+
+.trend-labels {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2px;
+
+    span { font-size: 0.7rem; color: var(--text-faint); }
+}
+
+// ── Skill gap bars ────────────────────────────────────────────────────────────
+.gap-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.gap-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    .gap-bar-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        width: 160px;
+        flex-shrink: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .gap-bar-track {
+        flex: 1;
+        height: 8px;
+        background: var(--bg);
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .gap-bar-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.6s ease;
+
+        &.high   { background: var(--error); }
+        &.medium { background: #ffc154; }
+        &.low    { background: #4cc38a; }
+    }
+
+    .gap-bar-count {
+        font-size: 0.76rem;
+        font-weight: 700;
+        color: var(--text-faint);
+        min-width: 16px;
+        text-align: right;
+    }
+}
+
+// ── Recent reports ────────────────────────────────────────────────────────────
+.recent-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.recent-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+
+    &:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .recent-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        min-width: 0;
+
+        .recent-role {
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .recent-date { font-size: 0.76rem; color: var(--text-faint); }
+    }
+
+    .recent-right {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-shrink: 0;
+
+        .recent-gaps { font-size: 0.78rem; color: var(--text-faint); }
+    }
+}
+
+// ── Empty / error states ──────────────────────────────────────────────────────
+.dashboard-empty {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: var(--text-faint);
+    gap: 0.75rem;
+    padding: 4rem 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
 
-    p { font-size: 0.85rem; max-width: 260px; margin-top: 0.4rem; }
+    .empty-icon { font-size: 2rem; }
+    h3 { font-size: 1.1rem; font-weight: 700; }
+    p { color: var(--text-muted); font-size: 0.88rem; max-width: 320px; }
+    .button { margin-top: 0.5rem; }
+}
+
+.dashboard-error {
+    color: var(--text-muted);
+    padding: 2rem;
+    text-align: center;
+
+    h3 { color: var(--text); font-size: 1rem; margin-bottom: 0.4rem; }
 }

@@ -16,3 +16,8 @@ export async function generateReport(formData) {
     });
     return response.data;
 }
+
+export async function getDashboard() {
+    const response = await axiosInstance.get('/api/v1/report/dashboard');
+    return response.data;
+}
